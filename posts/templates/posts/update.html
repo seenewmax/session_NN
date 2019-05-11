@@ -1,0 +1,12 @@
+<h1>글을 수정하겠습니다.</h1>
+
+<form action="{% url 'posts:update' post.pk %}" method="POST">
+    {% csrf_token %}
+    <labe>글의 제목</labe><br>
+    <input type="text" name="title" value="{{ post.title }}"><br>
+    
+    <label>글의 내용</label><br>
+    <textarea name="content">{{ post.content }}</textarea><br>
+    
+    <input type="submit" value="수정">
+</form>

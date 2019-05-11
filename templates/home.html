@@ -1,0 +1,9 @@
+<a href="{% url 'posts:new' %}">새 글 쓰기</a>
+
+{% for post in all_posts %}
+    <p>{{ post.title }}</p>
+    <p>{{ post.content }}</p>
+    <p>{{ post.created_at }}</p>
+    <a href="{% url 'posts:show' post.id %}">보러가기</a>
+    <p>===========================</p>
+{% endfor %}
