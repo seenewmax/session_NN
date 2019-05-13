@@ -24,16 +24,16 @@
 
 -- home.html
     {% if user.is_authenticated %}
-      Hi {{ user.username }}!
+      안녕 {{ user.username }}!
     <a href="{% url 'account_logout' %}">logout</a>
     <a href="{% url 'posts:new' %}">새 글 쓰기</a>
-    
-    {% for post in all_posts %}
-        <p>{{ post.title }}</p>
-        <p>{{ post.content }}</p>
-        <p>{{ post.created_at }}</p>
-        <a href="{% url 'posts:show' post.id %}">보러가기</a>
+    <p>===========================</p>
+    {% for post in posts %}
+        <a href="{% url 'posts:show' post.id %}"><h2>#{{ post.id }} : {{ post.title }}</h2></a>
+        <p>쓰니: {{ post.username }}</p>
         <p>===========================</p>
+        {% empty %}
+        <p>글이 없습니다.</p>
     {% endfor %}
     
     {% else %}

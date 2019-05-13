@@ -63,5 +63,5 @@
         <label>댓글 내용</label><br>
         <textarea name="content"></textarea><br>
         
-        <input type="submit">
+        <input type="submit" value="댓글쓰기">
     </form>
