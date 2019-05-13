@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
 from .forms import PostForm
+    
+def new(request):
+    return render(request, 'posts/new.html')
 
 def create(request):
     form = PostForm()
@@ -10,9 +13,6 @@ def create(request):
             form.save()
             return redirect('home')
     return render(request, 'posts/create.html', {'form': form})
-    
-def new(request):
-    return render(request, 'posts/new.html')
 
 def show(request, id):
     post = get_object_or_404(Post, pk=id)
@@ -32,6 +32,5 @@ def update(request, id):
     
 def delete(request, id):
     post = get_object_or_404(Post, pk=id)
-    if request.method == "POST":
-        post.delete()
-        return redirect('home')
+    post.delete()
+    return redirect('home')
