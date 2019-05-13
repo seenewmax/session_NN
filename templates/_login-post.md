@@ -1,3 +1,7 @@
+sudo pip3 install pipenv
+pipenv install django
+pipenv shell
+
 ===============로그인
 ======= 터미널
 
