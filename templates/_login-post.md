@@ -74,7 +74,7 @@ python manage.py migrate
 
 from django.contrib.auth.models import User
 
-username = models.ForeignKey(User, on_delete = models.CASCADE)
+user = models.ForeignKey(User, on_delete = models.CASCADE)
 # ForeignKey: Post마다 username이 있음
 # CASCADE: User가 삭제되면 그 유저의 Post도 모두 삭제 cf. PROTECT, SET_NULL
 
