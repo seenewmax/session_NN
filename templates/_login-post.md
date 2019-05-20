@@ -46,13 +46,13 @@ path('accounts/', include('allauth.urls')),
 ======= home.html
 
 {% if user.is_authenticated %}
-  안녕 {{ user.username }}!
+  안녕 {{ user.user }}!
 <a href="{% url 'account_logout' %}">logout</a>
 <a href="{% url 'posts:new' %}">새 글 쓰기</a>
 <p>===========================</p>
 {% for post in posts %}
     <a href="{% url 'posts:show' post.id %}"><h2>#{{ post.id }} : {{ post.title }}</h2></a>
-    <p>쓰니: {{ post.username }}</p>
+    <p>쓰니: {{ post.user }}</p>
     <p>===========================</p>
     {% empty %}
     <p>글이 없습니다.</p>
@@ -74,8 +74,8 @@ python manage.py migrate
 
 from django.contrib.auth.models import User
 
-username = models.ForeignKey(User, on_delete = models.CASCADE)
-# ForeignKey: Post마다 username이 있음
+user = models.ForeignKey(User, on_delete = models.CASCADE)
+# ForeignKey: Post마다 user가 있음
 # CASCADE: User가 삭제되면 그 유저의 Post도 모두 삭제 cf. PROTECT, SET_NULL
 
 
@@ -90,4 +90,4 @@ python manage.py migrate
 from django.contrib.auth.models import User
 
 form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
-form.username = request.user
+form.user = request.user

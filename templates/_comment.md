@@ -4,7 +4,7 @@
 class Comment(models.Model):
 objects = models.Manager()
 content = models.TextField()
-username = models.ForeignKey(User, on_delete = models.CASCADE)
+user = models.ForeignKey(User, on_delete = models.CASCADE)
 post = models.ForeignKey(Post, on_delete = models.CASCADE, related_name='comments')
 # Post의 Comment, Comment의 Post를 서로 추적 가능
 
@@ -39,7 +39,7 @@ class CommentForm(forms.ModelForm):
 <p>댓글 수 : {{ post.comments.count }}개</p> <!-- related_name을 써서 가능한 부분 -->
 <a href="{% url 'posts:new_comment' post.id %}">댓글 남기기</a> <!-- url 클릭 시 post.id를 함께 넘겨줌 -->
 {% for comment in post.comments.all %}
-    <p>쓰니 : {{ comment.username }}</p>
+    <p>쓰니 : {{ comment.user }}</p>
     <p>내용 : {{ comment.content }}</p>
     {% empty %}
     <p>댓글이 없습니다.</p>
@@ -49,7 +49,7 @@ class CommentForm(forms.ModelForm):
 ======= new_comment.html
 
 <h1>댓글 달기</h1>
-<form action="{% url 'posts:new_comment' post.id %}" method="POST">
+<form action="{% url 'posts:create_comment' post.id %}" method="POST">
     {% csrf_token %}
     <label>댓글 내용</label><br>
     <textarea name="content"></textarea><br>
@@ -87,7 +87,7 @@ def create_comment(request, id):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
-            comment.username = request.user
+            comment.user = request.user
             comment.save()
             return redirect('posts:show', post.id)
     return render(request, 'posts/new_comment.html', {'form': form})
@@ -107,6 +107,8 @@ path('<int:id>', views.delete_comment, name="delete_comment"),
 
 
 ======= views.py
+
+from .models import Post, Comment
 
 def delete_comment(request, id):
     comment = get_object_or_404(Comment, pk=id)

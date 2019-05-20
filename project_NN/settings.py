@@ -38,6 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'posts',
+    'django.contrib.sites', # new
+    'allauth', # new
+    'allauth.account', # new
+    'allauth.socialaccount', # new
+    'allauth.socialaccount.providers.github', # new
 ]
 
 MIDDLEWARE = [
@@ -119,3 +124,20 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+# 로그인 시 유저네임으로 로그인 (or email)
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+# 회원가입 시 이메일 입력 필수 여부
+ACCOUNT_EMAIL_REQUIRED = False
+# 회원가입 시 이메일 인증 관련 코드
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+AUTHENTICATION_BACKENDS = (
+    # 쟝고 superuser로 로그인 가능
+    "django.contrib.auth.backends.ModelBackend",
+    
+    # 이메일 등으로 로그인 가능
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+SITE_ID = 1
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
