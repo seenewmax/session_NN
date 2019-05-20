@@ -75,7 +75,11 @@ python manage.py migrate
 from django.contrib.auth.models import User
 
 user = models.ForeignKey(User, on_delete = models.CASCADE)
+<<<<<<< HEAD
 # ForeignKey: Post마다 user가 있음
+=======
+# ForeignKey: Post마다 username이 있음
+>>>>>>> ce8a3d6c6b929689e7b54d32fd0485675c1a9362
 # CASCADE: User가 삭제되면 그 유저의 Post도 모두 삭제 cf. PROTECT, SET_NULL
 
 
@@ -90,4 +94,8 @@ python manage.py migrate
 from django.contrib.auth.models import User
 
 form = form.save(commit=False) # form을 당장 저장하지 않음. 데이터 저장 전 뭔가 하고 싶을 때 사용.
+<<<<<<< HEAD
 form.user = request.user
+=======
+form.username = request.user
+>>>>>>> ce8a3d6c6b929689e7b54d32fd0485675c1a9362
