@@ -85,7 +85,7 @@ python manage.py makemigrations
 python manage.py migrate
 
 
-======== views.py / def create
+======= views.py / def create
 
 from django.contrib.auth.models import User
 
