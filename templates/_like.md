@@ -1,17 +1,39 @@
 =============== 좋아요
-======= models.py
+======= posts / models.py / class Post
 
-class Comment(models.Model):
-objects = models.Manager()
-content = models.TextField()
-user = models.ForeignKey(User, on_delete = models.CASCADE)
-post = models.ForeignKey(Post, on_delete = models.CASCADE, related_name='comments')
-# Post의 Comment, Comment의 Post를 서로 추적 가능
-
-created_at = models.DateTimeField(auto_now_add=True)
+likes = models.ManyToManyField(User, related_name='likes')
+# Post에 likes column을 추가
+# 1:N 관계는 ForeignKey를, M:N 관계는 ManyToManyField를 사용
+# 'likes'를 통해 User와 연결됨
 
 
 ======= 터미널
 
 python manage.py makemigrations
 python manage.py migrate
+
+
+======= posts / urls.py
+
+path('<int:id>/like/', views.like, name="like"),
+
+
+======= views.py
+
+def like(request, id):
+    user = request.user #로그인한 유저를 가져옴
+    post = get_object_or_404(Post, pk=id)
+    if request.method == 'POST':
+        if post.likes.filter(id = user.id).exists(): #이미 해당 유저가 likes컬럼에 존재하면
+            post.likes.remove(user) #likes 컬럼에서 해당 유저를 지운다.
+        else:
+            post.likes.add(user)
+    return redirect('posts:show', post.id)
+    
+======= show.html
+
+<form action="{% url 'posts:like' post.id%}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="좋아요">
+</form>
+{{ post.likes.count }}개
