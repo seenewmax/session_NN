@@ -24,10 +24,10 @@ def like(request, id):
     user = request.user #로그인한 유저를 가져옴
     post = get_object_or_404(Post, pk=id)
     if request.method == 'POST':
-        if post.likes.filter(id = user.id).exists(): #이미 해당 유저가 likes컬럼에 존재하면
-            post.likes.remove(user) #likes 컬럼에서 해당 유저를 지운다.
+        if post.likes.filter(id = user.id).exists(): #해당 post에 로그인한 유저가 like 컬럼에 존재하면
+            post.likes.remove(user) #like 컬럼에서 해당 유저를 지운다.
         else:
-            post.likes.add(user)
+            post.likes.add(user) #그 외의 경우 추가한다.
     return redirect('posts:show', post.id)
     
     
