@@ -30,6 +30,7 @@ def like(request, id):
             post.likes.add(user)
     return redirect('posts:show', post.id)
     
+    
 ======= show.html
 
 <form action="{% url 'posts:like' post.id%}" method="POST">
@@ -37,3 +38,13 @@ def like(request, id):
     <input type="submit" value="좋아요">
 </form>
 {{ post.likes.count }}개
+
+
+======= show.html
+
+좋아요 누른 사람
+{% for user in post.likes.all %}
+{{ user.username }}
+{% empty %}
+없음
+{% endfor %}

@@ -2,7 +2,7 @@
 <h1>#{{ post.id }}번 글</h1>
 <h2>제목 : {{ post.title }}</h2>
 <p>내용 : {{ post.content }}</p>
-<p>쓰니 : {{ post.username }}</p>
+<p>쓰니 : {{ post.user }}</p>
 <a href="{% url 'posts:update' post.id %}">수정</a><br>
 <form action="{% url 'posts:delete' post.id %}" method="POST">
     {% csrf_token %}

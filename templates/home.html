@@ -2,6 +2,7 @@
   안녕 {{ user.username }}!
 <a href="{% url 'account_logout' %}">logout</a>
 <a href="{% url 'posts:new' %}">새 글 쓰기</a>
+<a href="{% url 'posts:favourite' %}">좋아요 목록</a>
 <p>===========================</p>
 {% for post in posts %}
     <a href="{% url 'posts:show' post.id %}"><h2>#{{ post.id }} : {{ post.title }}</h2></a>

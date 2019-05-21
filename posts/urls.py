@@ -11,4 +11,5 @@ urlpatterns = [
     path('<int:id>/new_comment/', views.new_comment, name="new_comment"),
     path('<int:id>/create_comment/', views.create_comment, name="create_comment"),
     path('<int:id>', views.delete_comment, name="delete_comment"),
+    path('favourite/', views.favourite, name="favourite"),
 ]

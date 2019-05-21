@@ -62,3 +62,8 @@ def delete_comment(request, id):
     post = comment.post
     comment.delete()
     return redirect('posts:show', post.id)
+    
+# Like
+
+def favourite(request):
+    return render(request, 'posts/favourite.html')
