@@ -114,4 +114,4 @@ def delete_comment(request, id):
     comment = get_object_or_404(Comment, pk=id)
     post = comment.post
     comment.delete()
-    return render(request, 'posts/show.html', {"post": post})
+    return redirect('posts:show', post.id)
